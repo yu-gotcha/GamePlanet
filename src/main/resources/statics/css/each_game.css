@@ -1,0 +1,23 @@
+/*다른 게임*/
+.other-each-game{
+  display: inline;
+}
+
+/*다른 게임 목록*/
+#other-show{
+  text-align: center;
+}
+
+section{
+  text-align: center;
+}
+
+.other-game-img{
+  height: 120px;
+}
+
+/*게임 영역 지정*/
+#game{
+  width: 600px;
+  height: 400px;
+}

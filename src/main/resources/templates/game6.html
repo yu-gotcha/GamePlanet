@@ -1,0 +1,161 @@
+  <!--게임 방법을 읽거나 시작 화면으로 넘어가는 페이지-->
+<html>
+<head>
+
+	<title>연속 가위바위보</title>
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/css/each_game.css" />
+
+	<style>
+
+	#E{																/*게임 설명 이미지*/
+		display: none;
+		width:350;
+	}
+
+	#game{														/*게임 박스*/
+		background: #f8d3da;
+		margin: auto;
+	}
+
+	#title{														/*게임 제목*/
+		margin: 20 0;
+	}
+
+	#play-game > {										/*게임 영역*/
+		margin: 50 auto;
+	}
+
+	.b{																/*게임 시작, 방법 버튼*/
+		width: 200;
+		margin: 80 30;
+	}
+
+	</style>
+
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.js"
+	  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	  crossorigin="anonymous"></script>
+
+<script>
+	function explain(){						// 게임 방법 이미지 여는 함수
+		$('#E').show();
+		$('.b').hide();
+	}
+	function re(){							// 게임 방법 이미지 닫는 함수
+		$('#E').hide();
+		$('.b').show();
+	}
+</script>
+
+</head>
+<body>
+	<!--전체를 감싸는 태그-->
+  <div id="other-wrapper">
+		<!--헤더-->
+		<header id="header">
+			<a href="../game planet main.html">
+			<img src="/img/title.png" height="200px" class="logo-img"/></a>
+		</header>
+
+		<!--컨텐츠-->
+		<div id="other-content">
+			<!--게임시작-->
+			<section id="play-game">
+
+					<div id="game">
+					  <img src="/img/game6/game_title.png" id="title"/>																	<!--게임 제목-->
+						<a href="gameplay.html"><img class="b" src="/img/game6/start.png"/></a>				<!--게임 시작 버튼-->
+					 	<img class="b" src="/img/game6/howto.png" onclick="explain()"/>								<!--게임 방법 버튼-->
+						<img src="/img/game6/explain.png" id="E" onclick="re()"/>												<!--게임 방법 설명-->
+
+					</div>
+				</section>
+			<!--게임끝-->
+
+			<!--다른게임으로 이동-->
+      <section id="other-show">
+
+				<ul class="other-all-games">
+					<li class="other-each-game">
+            <a href="../game1/game1.html">
+              <img src="/img/1.png" id="game1" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game2/game2.html">
+              <img src="/img/2.png" id="game2" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+						<a href="../game3/game3.html">
+							<img src="/img/3.png" id="game3" class="other-game-img"/>
+
+						</a>
+					</li>
+
+					<li class="other-each-game">
+            <a href="../game4/game4.html">
+              <img src="/img/4.png" id="game4" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game5/game5.html">
+              <img src="/img/5.png" id="game5" class="other-game-img"/>
+
+            </a>
+          </li>
+				</ul>
+      </section>
+		</div>
+
+		<br />
+
+
+	</div>
+</body>
+
+  <!--이미지에 마우스를 올리면 이미지 전환-->
+<script>
+
+$('#game1').hover(function() {
+  $(this).attr('src', '/img/1_1.png');
+}, function(){
+  $(this).attr('src', '/img/1.png');
+});
+
+$('#game2').hover(function() {
+  $(this).attr('src', '/img/2_1.png');
+}, function(){
+  $(this).attr('src', '/img/2.png');
+});
+
+$('#game3').hover(function() {
+  $(this).attr('src', '/img/3_1.png');
+}, function(){
+  $(this).attr('src', '/img/3.png');
+});
+
+$('#game4').hover(function() {
+  $(this).attr('src', '/img/4_1.png');
+}, function(){
+  $(this).attr('src', '/img/4.png');
+});
+
+$('#game5').hover(function() {
+  $(this).attr('src', '/img/5_1.png');
+}, function(){
+  $(this).attr('src', '/img/5.png');
+});
+
+</script>
+
+</html>

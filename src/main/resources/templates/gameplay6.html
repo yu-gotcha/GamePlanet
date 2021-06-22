@@ -1,0 +1,327 @@
+
+<html>
+<head>
+
+	<title>연속 가위바위보</title>
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/css/each_game.css" />
+
+	<style>
+
+	#title{												/*게임 제목 이미지*/
+		margin: 20 0 0 0;
+	}
+
+	#game{												/*게임 박스*/
+		background: #f8d3da;
+		margin: auto;
+	}
+
+	#play-game > {								/*게임 영역*/
+		margin: 50 auto;
+	}
+
+	h3{													/*글자 중앙정렬*/
+		text-align: center;
+	}
+
+	.who{												/*누구인지 나타내는 영역*/
+		width: 300px;
+		float: left;
+	}
+	.choice {												/*사용자 패*/
+		width:150px;
+		margin: 40px 20px;
+	}
+	.computer {												/*컴퓨터 패*/
+		width:180px;
+		margin : 0 50;
+		display: none;
+	}
+	#con{												/*계속하기 이미지*/
+		display: none;
+		position: relative;
+		bottom: 20%;
+		left:1%;
+	}
+
+	#replay{											/*다시하기 박스*/
+		display: none;
+		position: relative;
+		bottom: 20%;
+		left:1%;
+	}
+
+	#reimg{												/*다시하기 이미지*/
+		width:100px;
+	}
+
+
+	</style>
+
+
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.js"
+	  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	  crossorigin="anonymous"></script>
+
+
+		<script>
+
+	    var score=0;
+			var effect1 = new Audio('/audio/game6/win.mp3');							 // 효과음
+			var effect2 = new Audio('/audio/game6/lose.mp3');					   // 효과음
+			var music = new Audio('/audio/game6/RPS.mp3');								 // 배경 음악
+
+			function basic(){																// audio로 노래를 틀면 안나오는 경우도 있어서 게임 클릭시 배경음악 재생
+				music.play();
+	      $('#game').attr('onclick','');
+			}
+
+	    function start(){																// 패 선택 화면
+	      $('#up').show();
+	      $('#ur').css('width',150);
+	      $('#ur').css('marginTop',0);      $('#ur').css('marginBottom',80);
+	      $('#ur').css('marginLeft',20);    $('#ur').css('marginRight',20);
+	      $('#us').css('width',150);
+	      $('#us').css('marginTop',0);      $('#us').css('marginBottom',80);
+	      $('#us').css('marginLeft',20);    $('#us').css('marginRight',20);
+	      $('#up').css('width',150);
+	      $('#up').css('marginTop',0);      $('#up').css('marginBottom',80);
+	      $('#up').css('marginLeft',20);    $('#up').css('marginRight',20);
+	      $('#ur').show();
+	      $('#us').show();
+	      $('#cr').hide();
+	      $('#cp').hide();
+	      $('#cs').hide();
+	      $('#con').hide();
+	      $('#prompt').text('가위바위보 중 선택하세요!');
+	      $('#who_user').text('');
+	      $('#who_com').text('');
+	    }
+
+	    function win(){															// 승리 함수
+		  effect1.play();															// 효과음 재생
+	      $('#prompt').text('WIN');
+	      $('#con').show();													// 계속 버튼 보여주기
+	      score=score+1;
+	      $('#score').text('score : '+score);
+	    }
+
+	    function lose(){															// 패배 함수
+			  effect2.play();															// 효과음 재생
+	      $('#con').hide();
+				$('#replay').show();												// 다시 버튼 보여주기
+		    $('#prompt').text('YOU LOSE');
+		    $('#score').text('score : '+score);
+		    score=0;
+	    }
+
+	    function draw(){															// 비김 함수
+	      $('#prompt').text('DRAW');
+	      $('#con').show();													// 계속 버튼 보여주기
+	      $('#score').text('score : '+score);
+	    }
+
+	  function comR(){																	// 컴퓨터가 바위 선택
+	    $('#cr').show();
+	    $('#cp').hide();
+	    $('#cs').hide();
+	  }
+	  function comP(){																	// 컴퓨터가 보 선택
+	    $('#cr').hide();
+	    $('#cp').show();
+	    $('#cs').hide();
+	  }
+	  function comS(){																	// 컴퓨터가 가위 선택
+	    $('#cr').hide();
+	    $('#cp').hide();
+	    $('#cs').show();
+	  }
+
+	    function selectUr(){														// 유저가 바위 선택
+	      $('#who_user').text('YOU');
+	      $('#who_com').text('COMPUTER');
+	      $('#ur').css('width',180);
+	      $('#ur').css('margin','0 50');
+	      $('#up').hide();
+	      $('#us').hide();
+	      var com=Math.floor(Math.random() * 3);			// 컴퓨터 패 결정, 0:바위, 1:가위, 2:보
+	      if(com==0){
+	        comR();
+	        draw();
+	      }
+	      else if(com==1){
+	        comS();
+	        win();
+	      }
+	      else if(com==2){
+	        comP();
+	        lose();
+	      }
+	    }
+
+	    function selectUs(){														// 유저가 가위 선택
+	      $('#who_user').text('YOU');
+	      $('#who_com').text('COMPUTER');
+	      $('#us').css('width',180);
+	      $('#us').css('margin','0 50');
+	      $('#up').hide();
+	      $('#ur').hide();
+	      var com=Math.floor(Math.random() * 3);			// 컴퓨터 패 결정, 0:바위, 1:가위, 2:보
+	      if(com==0){
+	        comR();
+	        lose();
+	      }
+	      else if(com==1){
+	        comS();
+	        draw();
+	      }
+	      else if(com==2){
+	        comP();
+	        win();
+	      }
+	    }
+
+	    function selectUp(){														// 유저가 보 선택
+	      $('#who_user').text('YOU');
+	      $('#who_com').text('COMPUTER');
+	      $('#up').css('width',180);
+	      $('#up').css('margin','0 50');
+	      $('#ur').hide();
+	      $('#us').hide();
+	      var com=Math.floor(Math.random() * 3);			// 컴퓨터 패 결정, 0:바위, 1:가위, 2:보
+	      if(com==0){
+	        comR();
+	        win();
+	      }
+	      else if(com==1){
+	        comS();
+	        lose();
+	      }
+	      else if(com==2){
+	        comP();
+	        draw();
+	      }
+	    }
+
+	  </script>
+
+
+</head>
+<body>
+	<!--전체를 감싸는 태그-->
+  <div id="other-wrapper">
+		<!--헤더-->
+		<header id="header">
+			<a href="../game planet main.html">
+			<img src="/img/title.png" height="200px" class="logo-img"/></a>
+		</header>
+
+		<!--컨텐츠-->
+		<div id="other-content">
+			<!--게임시작-->
+			<section id="play-game">
+					<div id="game" onclick="basic()">
+					  <img src="/img/game6/game_title.png" id="title"/>																					<!--제목이미지-->
+						<h3 id="prompt">가위바위보 중 선택하세요!</h3>
+						  <h3 id="score"></h3>																										<!--점수 표시-->
+						  <div class="who"><h3 id="who_user"></h3></div>
+						  <div class="who"><h3 id="who_com"></h3></div>
+					  <img src="/img/game6/ur.png" id="ur" name="ur" class="choice" onclick="selectUr()"/>		<!--가위바위보 이미지-->
+					  <img src="/img/game6/up.png" id="up" name="up" class="choice" onclick="selectUp()"/>
+					  <img src="/img/game6/us.png" id="us" name="us" class="choice" onclick="selectUs()" />
+					  <img src="/img/game6/cr.png" id="cr" name="cr" class="computer"/>
+					  <img src="/img/game6/cp.png" id="cp" name="cp" class="computer"/>
+					  <img src="/img/game6/cs.png" id="cs" name="cs" class="computer"/>
+					  <div id="con"><img src="/img/game6/ing.png" onclick="start()"></img></div>						<!--계속하기 이미지-->
+					  <div id="replay"><a href="game6.html"><img src="/img/game6/replay.png" id="reimg"></img></a></div>				<!--다시하기 이미지-->
+					  <br />
+
+					</div>
+				</section>
+			<!--게임끝-->
+
+			<!--다른게임으로 이동-->
+      <section id="other-show">
+
+				<ul class="other-all-games">
+					<li class="other-each-game">
+            <a href="../game1/game1.html">
+              <img src="/img/1.png" id="game1" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game2/game2.html">
+              <img src="/img/2.png" id="game2" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+						<a href="../game6/game3.html">
+							<img src="/img/3.png" id="game3" class="other-game-img"/>
+
+						</a>
+					</li>
+
+					<li class="other-each-game">
+            <a href="../game4/game4.html">
+              <img src="/img/4.png" id="game4" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game5/game5.html">
+              <img src="/img/5.png" id="game5" class="other-game-img"/>
+
+            </a>
+          </li>
+				</ul>
+      </section>
+    </div>
+
+    <br />
+
+	</div>
+</body>
+
+  <!--이미지에 마우스를 올리면 이미지 전환-->
+<script>
+
+$('#game1').hover(function() {
+  $(this).attr('src', '/img/1_1.png');
+}, function(){
+  $(this).attr('src', '/img/1.png');
+});
+
+$('#game2').hover(function() {
+  $(this).attr('src', '/img/2_1.png');
+}, function(){
+  $(this).attr('src', '/img/2.png');
+});
+
+$('#game3').hover(function() {
+  $(this).attr('src', '/img/3_1.png');
+}, function(){
+  $(this).attr('src', '/img/3.png');
+});
+
+$('#game4').hover(function() {
+  $(this).attr('src', '/img/4_1.png');
+}, function(){
+  $(this).attr('src', '/img/4.png');
+});
+
+$('#game5').hover(function() {
+  $(this).attr('src', '/img/5_1.png');
+}, function(){
+  $(this).attr('src', '/img/5.png');
+});
+
+</script>
+
+</html>

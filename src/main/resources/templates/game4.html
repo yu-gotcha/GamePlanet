@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2MART</title>
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/css/each_game.css" />
+
+</head>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+var th;
+var pos = 0;
+var wrong_count=0;
+var stage_count=1;
+var holjjac=0;
+
+var carpet = ["/img/game4/carpet1.png","/img/game4/carpet2.png","/img/game4/carpet3.png","/img/game4/carpet4.png","/img/game4/carpet5.png"];
+var spam = ["/img/game4/spam1.png","/img/game4/spam2.png","/img/game4/spam3.png","/img/game4/spam4.png","/img/game4/spam5.png","/img/game4/spam6.png","/img/game4/spam7.png","/img/game4/spam8.png","/img/game4/spam9.png","/img/game4/spam10.png"];
+var clock = ["/img/game4/clock1.png","/img/game4/clock2.png","/img/game4/clock3.png","/img/game4/clock4.png","/img/game4/clock5.png","/img/game4/clock6.png","/img/game4/clock7.png","/img/game4/clock8.png","/img/game4/clock9.png","/img/game4/clock10.png"];
+var pig = ["/img/game4/pig1.png","/img/game4/pig2.png","/img/game4/pig3.png","/img/game4/pig4.png","/img/game4/pig5.png","/img/game4/pig6.png","/img/game4/pig7.png","/img/game4/pig8.png","/img/game4/pig9.png","/img/game4/pig10.png"];
+var cookie = ["/img/game4/cookie1.png","/img/game4/cookie2.png","/img/game4/cookie3.png","/img/game4/cookie4.png","/img/game4/cookie5.png","/img/game4/cookie6.png","/img/game4/cookie7.png","/img/game4/cookie8.png","/img/game4/cookie9.png","/img/game4/cookie10.png","/img/game4/cookie11.png","/img/game4/cookie12.png","/img/game4/cookie13.png","/img/game4/cookie14.png","/img/game4/cookie15.png"];
+
+var click = new Audio('/audio/game4/click.mp3');
+var correct_bgm=new Audio('/audio/game4/correct.mp3');
+var wrong_bgm=new Audio('/audio/game4/wrong.mp3');
+var song1=new Audio('/audio/game4/Esong1.mp3');
+var song2=new Audio('/audio/game4/Esong2.mp3');
+var song3=new Audio('/audio/game4/Esong3.mp3');
+var song4=new Audio('/audio/game4/Esong4.mp3');
+var song5=new Audio('/audio/game4/Esong5.mp3');
+
+function howtoplay(){ //게임 방법
+	click.play();
+	if(holjjac%2==0){
+		document.home.src="/img/game4/howtoplay.jpg"
+	}
+	else{
+		document.home.src="/img/game4/game_title.jpg"
+	}
+  holjjac++;
+
+}
+function cssChange(){ //처음 시작할때 배경이미지 만들어줌
+	var x=document.getElementById("game4_play");
+	x.style.backgroundImage="url(/img/game4/background.jpg)";
+}
+function roundChange(){ //스테이지 넘어갈때 라운드 값 변화
+	var x=document.getElementById("game4_play");
+	if(stage_count==2){
+		x.style.backgroundImage="url(/img/game4/round2.png)";
+	}
+	else if(stage_count==3){
+		x.style.backgroundImage="url(/img/game4/round3.png)";
+	}
+	else if(stage_count==4){
+		x.style.backgroundImage="url(/img/game4/round4.png)";
+	}
+	else if(stage_count==5){
+		x.style.backgroundImage="url(/img/game4/round5.png)";
+	}
+	else if(stage_count==6){
+		x.style.backgroundImage="url(/img/game4/ending.jpg)";
+	}
+}
+//게임111111111111111111111111111111111111111111111111111111111111111111111111111
+function gamestart1(){
+
+  song1.play();
+  $("#home").hide();
+  $("#st").hide();
+  $("#ho").hide();
+  $("#round1").show(); //게임 시작하면 몇라운드인지 표시해주고
+  setTimeout(function(){
+		$("#game4_play").show();
+		cssChange();
+    $("#round1").hide();
+    $("#buy1").show();
+    fnStart1();
+  },1000);
+}
+function fnStart1(){ //이미지 지정된 시간마다 변경되게
+    clearInterval(th);
+    th  = setInterval(fn1,1000);
+		setTimeout(function(){
+    $("#one").show();},1000);
+}
+function fn1() //이미지 랜덤으로 설정
+{
+    var cone  = document.getElementById('cone');
+    cone.innerHTML = '<img src="'+carpet[generateRandom(0, 4)]+'">';
+}
+function compare1(){ //이미지 비교
+
+  var find=document.getElementById('cone').innerHTML;
+  if(find.indexOf("/img/game4/carpet1.png")!=-1){ //같은 이미지면 게임 중지
+    song1.pause();
+    clearInterval(th);
+    $("#buy1").hide();
+    $("#next2").show();
+    correct_bgm.play();
+  }
+  else{ //아니면 계속 시도되도록
+    wrong_count++;
+    wrong_bgm.play();
+  }
+}
+//게임2222222222222222222222222222222222222222222222222222222222222222222
+function gamestart2(){
+	stage_count++;
+  song2.play();
+  $("#next2").hide();
+  $("#one").hide();
+  $("#cone").hide();
+	roundChange();
+setTimeout(function(){
+		cssChange();
+    $("#buy2").show();
+    fnStart2();
+  },1000);
+}
+function fnStart2()
+{
+    clearInterval(th);
+    th  = setInterval(fn2,900);
+		setTimeout(function(){
+    $("#two").show();},900);
+}
+function fn2()
+{
+    var ctwo  = document.getElementById('ctwo');
+    ctwo.innerHTML = '<img src="'+spam[generateRandom(0, 9)]+'">';
+}
+function compare2(){
+
+  var find=document.getElementById('ctwo').innerHTML;
+  if(find.indexOf("/img/game4/spam1.png")!=-1){
+    song2.pause();
+    clearInterval(th);
+    $("#buy2").hide();
+    $("#next3").show();
+    correct_bgm.play();
+  }
+  else{
+    wrong_count++;
+    wrong_bgm.play();
+  }
+}
+//게임3333333333333333333333333333333333333333333333333333333333333333333
+function gamestart3(){
+	stage_count++;
+  song3.play();
+  $("#next3").hide();
+  $("#two").hide();
+  $("#ctwo").hide();
+	roundChange();
+  setTimeout(function(){
+    cssChange();
+    $("#buy3").show();
+    fnStart3();
+  },1000);
+}
+function fnStart3()
+{
+    clearInterval(th);
+    th  = setInterval(fn3,800);
+		setTimeout(function(){
+    $("#three").show();},800);
+}
+function fn3()
+{
+    var cthree  = document.getElementById('cthree');
+    cthree.innerHTML = '<img src="'+clock[generateRandom(0, 9)]+'">';
+}
+function compare3(){
+
+  var find=document.getElementById('cthree').innerHTML;
+  if(find.indexOf("/img/game4/clock1.png")!=-1){
+    song3.pause();
+    clearInterval(th);
+    $("#buy3").hide();
+    $("#next4").show();
+    correct_bgm.play();
+  }
+  else{
+    wrong_count++;
+    wrong_bgm.play();
+  }
+}
+//게임44444444444444444444444444444444444444444444444444444444444444444444444444
+function gamestart4(){
+	stage_count++;
+  song4.play();
+  $("#next4").hide();
+  $("#three").hide();
+  $("#cthree").hide();
+  roundChange();
+  setTimeout(function(){
+  	cssChange();
+    $("#buy4").show();
+    fnStart4();
+  },1000);
+}
+function fnStart4()
+{
+    clearInterval(th);
+    th  = setInterval(fn4,700);
+		setTimeout(function(){
+    $("#four").show();},700);
+}
+function fn4()
+{
+    var cfour  = document.getElementById('cfour');
+    cfour.innerHTML = '<img src="'+pig[generateRandom(0, 9)]+'">';
+}
+function compare4(){
+
+  var find=document.getElementById('cfour').innerHTML;
+  if(find.indexOf("/img/game4/pig1.png")!=-1){
+    song4.pause();
+    clearInterval(th);
+    $("#buy4").hide();
+    $("#next5").show();
+    correct_bgm.play();
+  }
+  else{
+    wrong_count++;
+    wrong_bgm.play();
+  }
+}
+//게임5555555555555555555555555555555555555555555555555555555555555555555
+function gamestart5(){
+	stage_count++;
+  song5.play();
+  $("#next5").hide();
+  $("#four").hide();
+  $("#cfour").hide();
+  roundChange();
+  setTimeout(function(){
+    cssChange();
+    $("#buy5").show();
+    fnStart5();
+  },1000);
+}
+function fnStart5()
+{
+    clearInterval(th);
+    th  = setInterval(fn5,600);
+		setTimeout(function(){
+    $("#five").show();},600);
+}
+function fn5()
+{
+    var cfive  = document.getElementById('cfive');
+    cfive.innerHTML = '<img src="'+cookie[generateRandom(0, 14)]+'">';
+}
+function compare5(){
+
+  var find=document.getElementById('cfive').innerHTML;
+  if(find.indexOf("/img/game4/cookie1.png")!=-1){
+		stage_count++;
+    song5.pause();
+    clearInterval(th);
+    $("#buy5").hide();
+    correct_bgm.play();
+    ending();
+  }
+  else{
+    wrong_count++;
+    wrong_bgm.play();
+  }
+}
+
+function ending(){ //마무리 엔딩
+  //환호 브금
+  $("#five").hide();
+  $("#cfive").hide();
+	$("#enter").show();
+	roundChange();
+  document.getElementById("ending_ment").innerHTML = '틀린 횟수 : ' + wrong_count + '회'; //결과값 출력
+}
+var generateRandom = function (min, max) { //랜덤숫자 만드는 함수
+  var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+  return ranNum;
+}
+</script>
+<body>
+	<!--전체를 감싸는 태그-->
+  <div id="other-wrapper">
+		<!--헤더-->
+		<header id="header">
+			<a href="../game planet main.html">
+			<img src="/img/title.png" height="200px" class="logo-img"/></a>
+		</header>
+
+		<!--컨텐츠-->
+		<div id="other-content">
+			<!--게임시작-->
+			<section id="play-game">
+				<div id="div"></div>
+	      <img id="home" name="home" src="게임제목.jpg"><br/><br/>
+	      <img id="st" src="/img/game4/start.jpg" style="cursor:pointer" onclick="gamestart1()">
+	      <img id="ho" src="/img/game4/howto.jpg" style="cursor:pointer" onclick="howtoplay()"><br/>
+	      <img id="round1" src="/img/game4/round1.png" style="display:none">
+	      <img id="round2" src="/img/game4/round2.png" style="display:none">
+	      <img id="round3" src="/img/game4/round3.png" style="display:none">
+	      <img id="round4" src="/img/game4/round4.png" style="display:none">
+	      <img id="round5" src="/img/game4/round5.png" style="display:none">
+
+				<!--게임이 진행되는 화면. 배경 설정해주고 그 위에 비교해야 하는 두 이미지가 나온다-->
+	      <div id="game4_play" style="display:none;margin:auto;background-repeat:no-repeat; background-position : center; width:600px; height:350px;">
+
+					<br/><br/><br/>
+	            <img id="one" src="/img/game4/carpet1.png" style="display:none;">
+	            <img id="two" src="/img/game4/spam1.png" style="display:none">
+	            <img id="three" src="/img/game4/clock1.png" style="display:none">
+	            <img id="four" src="/img/game4/pig1.png" style="display:none">
+	            <img id="five" src="/img/game4/cookie1.png" style="display:none">
+
+	            <span id='cone'></span>
+	            <span id='ctwo'></span>
+	            <span id='cthree'></span>
+	            <span id='cfour'></span>
+	            <span id='cfive'></span>
+
+							<div id="enter" style="display:none">
+							<br/><br/><br/><br/><br/><br/>
+						</div>
+	      	<h1 id="ending_ment" style="color:black"></h1>
+
+
+	      </div>
+<br/>
+	      <img id="buy1" src="/img/game4/buy.png" style="display:none;cursor:pointer;" onclick="compare1()">
+	      <img id="buy2" src="/img/game4/buy.png" style="display:none;cursor:pointer;" onclick="compare2()">
+	      <img id="buy3" src="/img/game4/buy.png" style="display:none;cursor:pointer;" onclick="compare3()">
+	      <img id="buy4" src="/img/game4/buy.png" style="display:none;cursor:pointer;" onclick="compare4()">
+	      <img id="buy5" src="/img/game4/buy.png" style="display:none;cursor:pointer;" onclick="compare5()">
+
+	      <img id="next2" src="/img/game4/next.png" style="display:none;cursor:pointer;" onclick="gamestart2()">
+	      <img id="next3" src="/img/game4/next.png" style="display:none;cursor:pointer;" onclick="gamestart3()">
+	      <img id="next4" src="/img/game4/next.png" style="display:none;cursor:pointer;" onclick="gamestart4()">
+	      <img id="next5" src="/img/game4/next.png" style="display:none;cursor:pointer;" onclick="gamestart5()">
+			</section>
+			<!--게임끝-->
+
+			<!--다른게임으로 이동-->
+			<section id="other-show">
+
+				<ul class="other-all-games">
+					<li class="other-each-game">
+            <a href="../game1/game1.html">
+              <img src="/img/1.png" id="game1" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game2/game2.html">
+              <img src="/img/2.png" id="game2" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game3/game3.html">
+              <img src="/img/3.png" id="game3" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game5/game5.html">
+              <img src="/img/5.png" id="game5" class="other-game-img"/>
+
+            </a>
+          </li>
+
+					<li class="other-each-game">
+            <a href="../game6/game6.html">
+              <img src="/img/6.png" id="game6" class="other-game-img"/>
+
+            </a>
+          </li>
+				</ul>
+			</section>
+		</div>
+
+	</div>
+</body>
+
+  <!--이미지에 마우스를 올리면 이미지 전환-->
+<script>
+
+$('#game1').hover(function() {
+  $(this).attr('src', '/img/1_1.png');
+}, function(){
+  $(this).attr('src', '/img/1.png');
+});
+
+$('#game2').hover(function() {
+  $(this).attr('src', '/img/2_1.png');
+}, function(){
+  $(this).attr('src', '/img/2.png');
+});
+
+$('#game3').hover(function() {
+  $(this).attr('src', '/img/3_1.png');
+}, function(){
+  $(this).attr('src', '/img/3.png');
+});
+
+$('#game5').hover(function() {
+  $(this).attr('src', '/img/5_1.png');
+}, function(){
+  $(this).attr('src', '/img/5.png');
+});
+
+$('#game6').hover(function() {
+  $(this).attr('src', '/img/6_1.png');
+}, function(){
+  $(this).attr('src', '/img/6.png');
+});
+
+</script>
+
+</html>

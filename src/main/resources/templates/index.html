@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html>
+<head>
+  <title>GAME PLANET</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+</head>
+<body>
+  <!--전체를 감싸는 태그-->
+  <div id="main-wrapper">
+    <!--헤더-->
+    <header id="header">
+      <a href="index.html">
+      <img src="/img/title.png" height="180px" class="logo-img"/></a>
+    </header>
+
+
+    <!--게임 목록-->
+    <div id="main-content">
+      <section id="main-show">
+        <div id="select">
+          <img class="select" src="/img/select.png" height="80px" />
+        </div>
+        <ul class="main-all-games">
+          <li class="main-each-game">
+            <a href="game1/game1.html" class="link">
+              <img id="game1" src="/img/1.png"  width="200px"  class="main-game-img"/>
+              <img src="/img/casual.png"  class="tag"/>
+              <h1 class="gametitle">요리왕</h1>
+            </a>
+          </li>
+
+          <li class="main-each-game">
+            <a href="game2/game2.html" class="link">
+              <img id="game2" src="/img/2.png" width="200px"  class="main-game-img"/>
+              <img src="/img/puzzle.png"  class="tag"/>
+              <h1 class="gametitle">숫자야구</h1>
+            </a>
+          </li>
+
+          <li class="main-each-game">
+            <a href="game3/game3.html" class="link">
+              <img id="game3" src="/img/3.png" width="200px"  class="main-game-img"/>
+              <img src="/img/rhythm.png"  class="tag"/>
+              <h1 class="gametitle">Rhythm Play</h1>
+            </a>
+          </li>
+
+          <li class="main-each-game">
+            <a href="game4/game4.html" class="link">
+              <img id="game4" src="/img/4.png" width="200px"  class="main-game-img"/>
+              <img src="/img/board.png"  class="tag"/>
+              <h1 class="gametitle">2MART</h1>
+            </a>
+          </li>
+
+          <li class="main-each-game">
+            <a href="game5/game5.html" class="link">
+              <img id="game5" src="/img/5.png" width="200px"  class="main-game-img"/>
+              <img src="/img/board.png"  class="tag"/>
+              <h1 class="gametitle">카드 뒤집기</h1>
+            </a>
+          </li>
+
+          <li class="main-each-game">
+            <a href="game6/game6.html" class="link">
+              <img id="game6" src="/img/6.png"  width="200px"  class="main-game-img"/>
+              <img src="/img/classic.png"  class="tag"/>
+              <h1 class="gametitle">연속 가위바위보</h1>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <div id="source-link">
+    <a href="source.html"><img src="/img/source.png"  width="150px"/></a>
+  </div>
+</body>
+
+
+  <!--이미지에 마우스를 올리면 이미지 전환-->
+<script>
+
+$('#game1').hover(function() {
+  $(this).attr('src', '/img/1_1.png');
+}, function(){
+  $(this).attr('src', '/img/1.png');
+});
+
+$('#game2').hover(function() {
+  $(this).attr('src', '/img/2_1.png');
+}, function(){
+  $(this).attr('src', '/img/2.png');
+});
+
+$('#game3').hover(function() {
+  $(this).attr('src', '/img/3_1.png');
+}, function(){
+  $(this).attr('src', '/img/3.png');
+});
+
+$('#game4').hover(function() {
+  $(this).attr('src', '/img/4_1.png');
+}, function(){
+  $(this).attr('src', '/img/4.png');
+});
+
+$('#game5').hover(function() {
+  $(this).attr('src', '/img/5_1.png');
+}, function(){
+  $(this).attr('src', '/img/5.png');
+});
+
+$('#game6').hover(function() {
+  $(this).attr('src', '/img/6_1.png');
+}, function(){
+  $(this).attr('src', '/img/6.png');
+});
+
+</script>
+</html>

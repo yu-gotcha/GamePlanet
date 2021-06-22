@@ -1,0 +1,345 @@
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<title>같은 그림 카드 뒤집기!</title>
+	<link rel="stylesheet" type="text/css" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/css/each_game.css" />
+  <style>
+	/*START, RESET 버튼*/
+    button{
+      font-size: 40px;
+      font-weight: bold;
+      border: none;
+      color: white;
+      background-color: rgba( 255, 255, 255, 0 );/*배경 투명으로*/
+      margin: 0px 30px;
+    }
+
+		/*호버튼 버 했을때*/
+    button:hover{
+      color: blue;
+      font-style: italic;
+    }
+
+		/*타이머 공간*/
+    input{
+      font-size: 40px;
+      border: none;
+      background-color: rgba( 255, 255, 255, 0 );/*배경 투명으로*/
+    }
+
+		/*카드 이미지*/
+    .img{
+      height: 80px;
+      width: 80px;
+    }
+
+		/*게임 영역 설정-기본 레이아웃으로 지정된 영역 작아서 별도로 설정함*/
+    #play-game{
+			width: 600px;
+			height: 450px;
+			margin: auto;
+      background-image: url("/img/game5/image_play2.jpg");/*게임 구역에 배경이미지 적용*/
+			padding-top: 50px;
+
+			background-repeat: no-repeat;
+		}
+
+    .box{
+			text-align: center;
+		}
+
+		#other-content{
+      text-align: center;
+			margin: auto;
+    }
+
+    #other-content2{
+      text-align: center;
+			margin: auto;
+			position: relative;
+			width: 600px;
+			height: 450px;
+    }
+
+    table{
+      margin: auto;
+    }
+
+		/*게임 시작 전, 게임 후에 나타나는 이미지*/
+		.blur{
+			background: url('/img/game5/blur.jpg');
+			position: absolute;
+
+			width: 600px;
+			height: 450px;
+		}
+		#startbutton{
+			font-size: 100px;
+			line-height: 450px;
+		}
+
+		/*게임 끝나고 시간 출력되는 부분*/
+		#finishgame{
+			font-size: 40px;
+			position: absolute;
+			top: 10px;
+			width: 600px;
+		}
+  </style>
+  <script LANGUAGE="JavaScript">
+    var pics = new Array();
+
+		//이미지 배당
+    for (i = 0; i <= 8; i++) {
+      pics[i] = new Image();
+      pics[i].src = 'image' + i + '.jpg';
+    }
+
+    var map=new Array(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8);//게임 맵(카드판)
+    var user = new Array();//같은 카드 클릭으로 뒤집히면 1이 저장됨. 아니면 기본 0값
+    var clickarray = new Array(0, 0);//배열로 클릭 받음
+    var runtime, sec, min, ctr, id, oktoclick, finished;
+
+		var audio = new Audio('/audio/game5/bensound-funkyelement.mp3');
+		var correct = new Audio('/audio/game5/correct.mp3');
+
+		$(audio).on('ended',function(){
+		  audio.currentTime=0;
+		  audio.play();
+		});
+
+		//게임 시작 버튼과 그 배경 이미지 가림
+		function hidestart(){
+			$('#startbutton').hide();
+			$('.blur').hide();
+			Initialize();
+		}
+
+
+    //초기화 >>처음부터
+    function Initialize() {
+       clearTimeout(id);
+       for (i = 0; i <= 15 ;i++){
+         user[i] = 0;
+         document.run[('img'+i)].src = "image0.jpg";
+       }
+
+			//초기값으로 설정
+       runtime = 0;
+       min = 0;
+       sec = 0;
+       ctr = 0;
+       oktoclick = true;
+       finished = 0;
+       document.run.time.value = "";
+       scramble();//카드 섞기
+       timer();//타이머 실행
+    }
+
+		//타이머가  1초마다 계속 실행됨. runtime에 총 진행 sec가 저장됨
+    function timer() {
+      min = Math.floor(runtime/60); //총 진행 sec를 60으로 나누고 소수점 이하 버리면 min값 구할 수 있음
+      sec = (runtime-(min*60))+'';//min으로 올라간 sec는 빼주면 min에 맞는 sec값 구함
+
+      if(sec>=0&&sec<=9) sec = "0"+sec;//sec가 한자리 수면 앞에 0을 붙여 써서 자리(?) 맞춰줌
+
+      runtime++;//총 진행  sec
+      document.run.time.value = min+":"+sec;
+      id = setTimeout('timer()', 1000);
+    }
+
+		//카드 섞기
+    function scramble() {
+     map.sort(  function(){ return Math.random() -Math.random() }  );//랜덤으로 정렬시킴
+    }
+
+  // 클릭시 이미지 출력,  클릭한 이미지 번호 num 파라미터로 받음
+    function openImage(num) {
+			//ok to click이 true값일때만
+      if (oktoclick) {
+       oktoclick = false;
+       document.run[('img'+num)].src = '/img/game5/image'+map[num]+'.jpg';
+
+				//첫번째 클릭 구분
+        if (ctr == 0) {
+         ctr++;
+         clickarray[0] = num;
+         oktoclick = true;//두번째 클릭 받아야하니까 활성화시킴
+        }
+
+				//두번째 클릭 구분
+        else {
+         clickarray[1] = num;
+         ctr = 0;
+         setTimeout('turnOver()', 300);//두번째 클릭 들어온 후 오픈 유지시간
+        }
+       }
+    }
+
+    //두개 클륵 후 동작(카드 뒤집기)
+    function turnOver() {
+      //똑같은 칸 클릭 다시 뒤집음
+     if ((clickarray[0] == clickarray[1]) && (!user[clickarray[0]])) {
+      document.run[('img'+clickarray[0])].src = "image0.jpg";
+      oktoclick = true;//카드 뒤집은 후에 클릭 활성화시켜줌
+     }
+
+    //다른 두 칸 눌렀지만  틀리면 다시 뒤집음
+     else{
+      if (map[clickarray[0]] != map[clickarray[1]]) {
+       if (user[clickarray[0]] == 0)document.run[('img'+clickarray[0])].src = "image0.jpg";
+       if (user[clickarray[1]] == 0)document.run[('img'+clickarray[1])].src = "image0.jpg";
+      }
+
+      //같은그림이다
+      if (map[clickarray[0]] == map[clickarray[1]]) {
+       if (user[clickarray[0]] == 0&&user[clickarray[1]] == 0) { finished++; }//게임 종료 타임을 알기 위한 카운트
+       user[clickarray[0]] = 1;
+       user[clickarray[1]] = 1;
+      }
+
+      //게임 끝났다!
+      if (finished >= 8) {
+       clearTimeout(id);//타이머 정지
+			 correct.play();
+			 $('.blur').show();//가리는 이미지 보이기
+			 document.getElementById('finishgame').innerHTML=' Your running time : '+document.run.time.value;//걸린 시간 출력
+			$('#startbutton').show();//시작버튼 보이게
+			audio.pause();//음악 정지
+			audio.currentTime=0;
+      }
+      else {
+				//게임 안끝났으면 클릭 다시 활성화
+        oktoclick = true;
+      }
+     }
+    }
+    </script>
+</head>
+<body onLoad="Initialize()">
+	<!--전체를 감싸는 태그-->
+  <div id="other-wrapper">
+		<!--헤더-->
+		<header id="header">
+			<a href="../game planet main.html">
+			<img src="/img/title.png" height="200px" class="logo-img"/></a>
+		</header>
+
+		<!--컨텐츠-->
+		<div id="other-content">
+			<div id="other-content2">
+			<div class="blur">
+				<button id="startbutton" onclick="hidestart(); audio.play();">START</button>
+				<p id="finishgame"></p>
+			</div>
+			<!--게임시작-->
+			<section id="play-game">
+                <table>
+                  <tr>
+                    <td>
+                                    <!--form 태그로 묶음-->
+                      <form name="run">
+                        <table>
+                          <script language="javascript">
+                                            //카드 배치(반복문 이용)
+                            for (r = 0; r <= 3; r++) {
+                            document.write('<tr>');
+                              for (c = 0; c <= 3; c++) {
+                              document.write('<td align="center">');
+                              document.write('<img src="/img/game5/image0.jpg" class="img" onclick="openImage('+((4*r)+c)+')" name="img'+((4*r)+c)+'" border="0">');//몇번 이미지인지 함수레 전달
+                              document.write('</a></td>');
+                            }
+                            document.write('</tr>');
+                          }
+                          </script>
+                        </table>
+
+                        <button onclick="Initialize()">RESET</button><!--클릭시 초기화 함수 호출-->
+                        <input  type="button" name="time"></input><!--시간 나오는 부분-->
+                      </form>
+                    </td>
+                  </tr>
+                </table>
+			</section>
+		</div>
+			<!--게임끝-->
+
+			<!--다른게임으로 이동-->
+			<section id="other-show">
+				<div class="link-other">
+                    <ul class="other-all-games">
+                        <li class="other-each-game">
+                            <a href="../game1/game1.html">
+                                <img src="/img/1.png" id="game1" class="other-game-img"/>
+                            </a>
+                         </li>
+
+                        <li class="other-each-game">
+                            <a href="../game2/game2.html">
+                                <img src="/img/2.png" id="game2" class="other-game-img"/>
+                            </a>
+                        </li>
+
+                        <li class="other-each-game">
+                            <a href="../game3/game3.html">
+                              <img src="/img/3.png" id="game3" class="other-game-img"/>
+                            </a>
+                        </li>
+
+                        <li class="other-each-game">
+                            <a href="../game4/game4.html">
+                                <img src="/img/4.png" id="game4" class="other-game-img"/>
+                            </a>
+                        </li>
+
+                        <li class="other-each-game">
+                            <a href="../game6/game6.html">
+                                <img src="/img/6.png" id="game6" class="other-game-img"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+			</section>
+		</div>
+
+		<br />
+	</div>
+</body>
+
+<!--이미지에 마우스를 올리면 이미지 전환-->
+<script>
+
+$('#game1').hover(function() {
+  $(this).attr('src', '/img/1_1.png');
+}, function(){
+  $(this).attr('src', '/img/1.png');
+});
+
+$('#game2').hover(function() {
+  $(this).attr('src', '/img/2_1.png');
+}, function(){
+  $(this).attr('src', '/img/2.png');
+});
+
+$('#game3').hover(function() {
+  $(this).attr('src', '/img/3_1.png');
+}, function(){
+  $(this).attr('src', '/img/3.png');
+});
+
+$('#game4').hover(function() {
+  $(this).attr('src', '/img/4_1.png');
+}, function(){
+  $(this).attr('src', '/img/4.png');
+});
+
+$('#game6').hover(function() {
+  $(this).attr('src', '/img/6_1.png');
+}, function(){
+  $(this).attr('src', '/img/6.png');
+});
+
+</script>
+
+</html>
