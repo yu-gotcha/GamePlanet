@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="ko">
-<html>
-<head>
-  <title>GAME PLANET</title>
-  <link rel="stylesheet" type="text/css" href="/css/main.css" />
-  <script
-    src="https://code.jquery.com/jquery-3.4.1.js"
-    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-    crossorigin="anonymous"></script>
 
   <style>
     .source_a{
@@ -15,8 +5,6 @@
     }
     .source_div{
       margin-left: 20px;
-      width: 30%;
-      display: inline-block;
     }
     .source_h1{
       margin: 10px 0;
@@ -30,9 +18,7 @@
       background: rgba(0, 0, 0, 0.5);
       margin: 10px auto;
       padding: 10px;
-      height: 700px;
-
-      display: none;
+      height: 700px
     }
     .source{
       float: left;
@@ -40,93 +26,8 @@
     }
   </style>
 
-  <script>
-    function open_source(){
-      $('#main-content').hide();
-      $('#source-link').hide();
-      $('#main-source').show();
-    }
-
-    function close_source(){
-      $('#main-source').hide();
-      $('#main-content').show();
-      $('#source-link').show();
-    }
-  </script>
-</head>
-<body>
-  <!--전체를 감싸는 태그-->
-  <div id="main-wrapper">
-    <!--헤더-->
-    <header id="header">
-      <img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.replace('/')"/>
-    </header>
-
-
-    <!--게임 목록-->
-    <div id="main-content">
-      <section id="main-show">
-        <div id="select">
-          <img class="select" src="/img/select.png" height="80px" />
-        </div>
-        <ul class="main-all-games">
-          <li class="main-each-game">
-            <span type="button" onclick="location.replace('game1')" class="link">
-              <img id="game1" src="/img/1.png"  width="200px"  class="main-game-img"/>
-              <img src="/img/casual.png"  class="tag"/>
-              <h1 class="gametitle">요리왕</h1>
-            </span>
-          </li>
-
-          <li class="main-each-game">
-            <span type="button" onclick="location.replace('game2')" class="link">
-              <img id="game2" src="/img/2.png" width="200px"  class="main-game-img"/>
-              <img src="/img/puzzle.png"  class="tag"/>
-              <h1 class="gametitle">숫자야구</h1>
-            </span>
-          </li>
-
-          <li class="main-each-game">
-            <span type="button" onclick="location.replace('game3')" class="link">
-              <img id="game3" src="/img/3.png" width="200px"  class="main-game-img"/>
-              <img src="/img/rhythm.png"  class="tag"/>
-              <h1 class="gametitle">Rhythm Play</h1>
-            </span>
-          </li>
-
-          <li class="main-each-game">
-            <span type="button" onclick="location.replace('game4')" class="link">
-              <img id="game4" src="/img/4.png" width="200px"  class="main-game-img"/>
-              <img src="/img/board.png"  class="tag"/>
-              <h1 class="gametitle">2MART</h1>
-            </span>
-          </li>
-
-          <li class="main-each-game">
-            <span type="button" onclick="location.replace('game5')" class="link">
-              <img id="game5" src="/img/5.png" width="200px"  class="main-game-img"/>
-              <img src="/img/board.png"  class="tag"/>
-              <h1 class="gametitle">카드 뒤집기</h1>
-            </span>
-          </li>
-
-          <li class="main-each-game">
-            <span type="button" onclick="location.replace('game6')" class="link">
-              <img id="game6" src="/img/6.png"  width="200px"  class="main-game-img"/>
-              <img src="/img/classic.png"  class="tag"/>
-              <h1 class="gametitle">연속 가위바위보</h1>
-            </span>
-          </li>
-        </ul>
-      </section>
-    </div>
-  </div>
-  <div id="source-link">
-    <img src="/img/source.png" width="150px" type = "button" onclick="open_source()"/></a>
-  </div>
-
   <!--출처 목록-->
-  <div class="source_div" id="main-source" type="button" onclick="close_source()">
+  <div class="source_div" id="main-source">
 
     <div class="source_div" class="source">
       <h1 class="source_h1">요리왕</h1>
@@ -207,47 +108,4 @@
     </div>
 
   </div>
-</body>
 
-
-  <!--이미지에 마우스를 올리면 이미지 전환-->
-<script>
-
-$('#game1').hover(function() {
-  $(this).attr('src', '/img/1_1.png');
-}, function(){
-  $(this).attr('src', '/img/1.png');
-});
-
-$('#game2').hover(function() {
-  $(this).attr('src', '/img/2_1.png');
-}, function(){
-  $(this).attr('src', '/img/2.png');
-});
-
-$('#game3').hover(function() {
-  $(this).attr('src', '/img/3_1.png');
-}, function(){
-  $(this).attr('src', '/img/3.png');
-});
-
-$('#game4').hover(function() {
-  $(this).attr('src', '/img/4_1.png');
-}, function(){
-  $(this).attr('src', '/img/4.png');
-});
-
-$('#game5').hover(function() {
-  $(this).attr('src', '/img/5_1.png');
-}, function(){
-  $(this).attr('src', '/img/5.png');
-});
-
-$('#game6').hover(function() {
-  $(this).attr('src', '/img/6_1.png');
-}, function(){
-  $(this).attr('src', '/img/6.png');
-});
-
-</script>
-</html>

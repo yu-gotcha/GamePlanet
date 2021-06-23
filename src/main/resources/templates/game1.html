@@ -7,291 +7,290 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-var value;
-var start_seconds, end_seconds, between_seconds;
-var guess_seconds;
-var holjjac=0;
+	var value;
+	var start_seconds, end_seconds, between_seconds;
+	var guess_seconds;
+	var holjjac=0;
 
-var background = new Audio('/audio/game1/bgm.mp3');
-var click = new Audio('/audio/game1/click.mp3');
-var success = new Audio('/audio/game1/success.mp3');
-var fail = new Audio('/audio/game1/fail.mp3');
-var ppick = new Audio('/audio/game1/ppick.mp3');
-var wing = new Audio('/audio/game1/wing.mp3');
+	var background = new Audio('/audio/game1/bgm.mp3');
+	var click = new Audio('/audio/game1/click.mp3');
+	var success = new Audio('/audio/game1/success.mp3');
+	var fail = new Audio('/audio/game1/fail.mp3');
+	var ppick = new Audio('/audio/game1/ppick.mp3');
+	var wing = new Audio('/audio/game1/wing.mp3');
 
-function exp(){ //게임 방법 설명
-	click.play();
-	if(holjjac%2==0){
-		document.home.src="/img/game1/how_to_cook.jpg"
+	function exp(){ //게임 방법 설명
+		click.play();
+		if(holjjac%2==0){
+			document.home.src="/img/game1/how_to_cook.jpg"
+		}
+		else{
+			document.home.src="/img/game1/cook_king_main.jpg"
+		}
+		holjjac++;
 	}
-	else{
-		document.home.src="/img/game1/cook_king_main.jpg"
+	function go_home(){ //홈화면으로 되돌아가기
+		background.pause();
+		background.currentTime=0;
+		$("#food").hide();
+		$("#main_start").show();
+		$("#home").show();
+		$("#how").show();
 	}
-	holjjac++;
-  }
-function go_home(){ //홈화면으로 되돌아가기
-  background.pause();
-  background.currentTime=0;
-  $("#food").hide();
-  $("#main_start").show();
-  $("#home").show();
-  $("#how").show();
-}
-function round(){ //첫화면에서 게임 시작 누르면 나오는 화면
-  click.play();
-  background.play();
-  $("#main_start").hide();
-  $("#home").hide();
-  $("#how").hide();
-  show_menu();
-}
-function food1_start(){ //게임시작. 무슨게임인지에 따라 value 다르게
-  value=1;
-  food_start();
-}
-function food2_start(){
-  value=2;
-  food_start();
-}
-function food3_start(){
-  value=3;
-  food_start();
-}
-function food4_start(){
-  value=4;
-  food_start();
-}
-function food5_start(){
-  value=5;
-  food_start();
-}
-function food_start(){ //라운드에서 음식 눌렀을 때 전자레인지 나옴
-  click.play();
-  background.pause();
-  background.currentTime=0;
-  $("#food").hide();
-  document.oven.src="/img/game1/before_cooking_oven.jpg"
-  $("#before_cooking_oven").show();
-  $("#start_button").show();
-  $("#end_button").show();
-  $("#menu").show();
-  guess_count();
-  $("#what_guess_seconds").show();
-}
-function show_menu(){ //5개 음식을 보여줌
-  background.play();
-  $("#menu").hide();
-  $("#before_cooking_oven").hide();
-  $("#start_button").hide();
-  $("#end_button").hide();
-  $("#food").show();
-  $("#back").show();
+	function round(){ //첫화면에서 게임 시작 누르면 나오는 화면
+		click.play();
+		background.play();
+		$("#main_start").hide();
+		$("#home").hide();
+		$("#how").hide();
+		show_menu();
+	}
+	function food1_start(){ //게임시작. 무슨게임인지에 따라 value 다르게
+		value=1;
+		food_start();
+	}
+	function food2_start(){
+		value=2;
+		food_start();
+	}
+	function food3_start(){
+		value=3;
+		food_start();
+	}
+	function food4_start(){
+		value=4;
+		food_start();
+	}
+	function food5_start(){
+		value=5;
+		food_start();
+	}
+	function food_start(){ //라운드에서 음식 눌렀을 때 전자레인지 나옴
+		click.play();
+		background.pause();
+		background.currentTime=0;
+		$("#food").hide();
+		document.oven.src="/img/game1/before_cooking_oven.jpg"
+		$("#before_cooking_oven").show();
+		$("#start_button").show();
+		$("#end_button").show();
+		$("#menu").show();
+		guess_count();
+		$("#what_guess_seconds").show();
+	}
+	function show_menu(){ //5개 음식을 보여줌
+		background.play();
+		$("#menu").hide();
+		$("#before_cooking_oven").hide();
+		$("#start_button").hide();
+		$("#end_button").hide();
+		$("#food").show();
+		$("#back").show();
 
-  $("#what_guess_seconds").hide();
-  $("#when_start_button_click").hide();
-  $("#when_end_button_click").hide();
-  $("#between_button_click").hide();
-}
-function start_count(){ //오븐 가동
-  ppick.play();
-  wing.play();
-  var date=new Date();
-  start_seconds=date.getSeconds();
-  //document.getElementById("when_start_button_click").innerHTML = start_seconds;
-  //$("#when_start_button_click").show();
-}
-function end_count(){ //오븐 스탑
-  wing.pause();
-  wing.currentTime=0;
-  var date=new Date();
-  end_seconds=date.getSeconds();
-  //document.getElementById("when_end_button_click").innerHTML = end_seconds;
-  //$("#when_end_button_click").show();
-  between_count();
-  //setTimeout(change_img(),300000);
-  change_img();
-}
-function between_count(){ //오븐스탑-오븐가동=내가 카운트를 센 시간
-  if(start_seconds>end_seconds){
-    between_seconds=end_seconds-start_seconds+60;
-  }
-  else{
-    between_seconds=end_seconds-start_seconds;
-  }
-  document.getElementById("between_button_click").innerHTML = '당신의 조리시간 : ' + between_seconds + '초';
-  $("#between_button_click").show();
-}
-function guess_count(){ //맞춰야 하는 초
-  var date=new Date();
-  guess_seconds=parseInt(generateRandom(1, 20));
-  document.getElementById("what_guess_seconds").innerHTML = '목표 조리시간 : ' + guess_seconds + '초';
-}
-function change_img(){ //결과화면 출력
-  if(value==1){
-    if(between_seconds<guess_seconds){
-      fail.play();
-      document.oven.src="/img/game/chicken1.jpg" }
-    else if(between_seconds==guess_seconds){
-      success.play();
-      document.oven.src="/img/game/chicken2.jpg" }
-    else{
-      fail.play();
-      document.oven.src="/img/game/chicken3.jpg" }
-  }
-  else if(value==2){
-    if(between_seconds<guess_seconds){
-      fail.play();
-      document.oven.src="/img/game/popcorn1.jpg" }
-    else if(between_seconds==guess_seconds){
-      success.play();
-      document.oven.src="/img/game/popcorn2.jpg" }
-    else{
-      fail.play();
-      document.oven.src="/img/game/popcorn3.jpg" }
-  }
-  else if(value==3){
-    if(between_seconds<guess_seconds){
-      fail.play();
-      document.oven.src="/img/game/egg1.jpg" }
-    else if(between_seconds==guess_seconds){
-      success.play();
-      document.oven.src="/img/game/egg2.jpg" }
-    else{
-      fail.play();
-      document.oven.src="/img/game/egg3.jpg" }
-  }
-  else if(value==4){
-    if(between_seconds<guess_seconds){
-      fail.play();
-      document.oven.src="/img/game/bread1.jpg" }
-    else if(between_seconds==guess_seconds){
-      success.play();
-      document.oven.src="/img/game/bread2.jpg" }
-    else{
-      fail.play();
-      document.oven.src="/img/game/bread3.jpg" }
-  }
-  else if(value==5){
-    if(between_seconds<guess_seconds){
-      fail.play();
-      document.oven.src="/img/game/hotdog1.jpg" }
-    else if(between_seconds==guess_seconds){
-      success.play();
-      document.oven.src="/img/game/hotdog2.jpg" }
-    else{
-      fail.play();
-      document.oven.src="/img/game/hotdog3.jpg" }
-  }
-}
-var generateRandom = function (min, max) { //랜덤숫자 만드는 함수
-  var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
-  return ranNum;
-}
+		$("#what_guess_seconds").hide();
+		$("#when_start_button_click").hide();
+		$("#when_end_button_click").hide();
+		$("#between_button_click").hide();
+	}
+	function start_count(){ //오븐 가동
+		ppick.play();
+		wing.play();
+		var date=new Date();
+		start_seconds=date.getSeconds();
+		//document.getElementById("when_start_button_click").innerHTML = start_seconds;
+		//$("#when_start_button_click").show();
+	}
+	function end_count(){ //오븐 스탑
+		wing.pause();
+		wing.currentTime=0;
+		var date=new Date();
+		end_seconds=date.getSeconds();
+		//document.getElementById("when_end_button_click").innerHTML = end_seconds;
+		//$("#when_end_button_click").show();
+		between_count();
+		//setTimeout(change_img(),300000);
+		change_img();
+	}
+	function between_count(){ //오븐스탑-오븐가동=내가 카운트를 센 시간
+		if(start_seconds>end_seconds){
+			between_seconds=end_seconds-start_seconds+60;
+		}
+		else{
+			between_seconds=end_seconds-start_seconds;
+		}
+		document.getElementById("between_button_click").innerHTML = '당신의 조리시간 : ' + between_seconds + '초';
+		$("#between_button_click").show();
+	}
+	function guess_count(){ //맞춰야 하는 초
+		var date=new Date();
+		guess_seconds=parseInt(generateRandom(1, 20));
+		document.getElementById("what_guess_seconds").innerHTML = '목표 조리시간 : ' + guess_seconds + '초';
+	}
+	function change_img(){ //결과화면 출력
+		if(value==1){
+			if(between_seconds<guess_seconds){
+				fail.play();
+				document.oven.src="/img/game1/chicken1.jpg" }
+			else if(between_seconds==guess_seconds){
+				success.play();
+				document.oven.src="/img/game1/chicken2.jpg" }
+			else{
+				fail.play();
+				document.oven.src="/img/game1/chicken3.jpg" }
+		}
+		else if(value==2){
+			if(between_seconds<guess_seconds){
+				fail.play();
+				document.oven.src="/img/game1/popcorn1.jpg" }
+			else if(between_seconds==guess_seconds){
+				success.play();
+				document.oven.src="/img/game1/popcorn2.jpg" }
+			else{
+				fail.play();
+				document.oven.src="/img/game1/popcorn3.jpg" }
+		}
+		else if(value==3){
+			if(between_seconds<guess_seconds){
+				fail.play();
+				document.oven.src="/img/game1/egg1.jpg" }
+			else if(between_seconds==guess_seconds){
+				success.play();
+				document.oven.src="/img/game1/egg2.jpg" }
+			else{
+				fail.play();
+				document.oven.src="/img/game1/egg3.jpg" }
+		}
+		else if(value==4){
+			if(between_seconds<guess_seconds){
+				fail.play();
+				document.oven.src="/img/game1/bread1.jpg" }
+			else if(between_seconds==guess_seconds){
+				success.play();
+				document.oven.src="/img/game1/bread2.jpg" }
+			else{
+				fail.play();
+				document.oven.src="/img/game1/bread3.jpg" }
+		}
+		else if(value==5){
+			if(between_seconds<guess_seconds){
+				fail.play();
+				document.oven.src="/img/game1/hotdog1.jpg" }
+			else if(between_seconds==guess_seconds){
+				success.play();
+				document.oven.src="/img/game1/hotdog2.jpg" }
+			else{
+				fail.play();
+				document.oven.src="/img/game1/hotdog3.jpg" }
+		}
+	}
+	var generateRandom = function (min, max) { //랜덤숫자 만드는 함수
+		var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+		return ranNum;
+	}
 </script>
 <body>
-	<!--전체를 감싸는 태그-->
-  <div id="other-wrapper">
-		<!--헤더-->
-		<header id="header">
-			<a href="../game planet main.html">
-		<img src="/img/title.png" height="200px" class="logo-img"/></a>
-		</header>
+<!--전체를 감싸는 태그-->
+<div id="other-wrapper">
+	<!--헤더-->
+	<header id="header">
+		<img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.replace('/')"/>
+	</header>
 
-		<!--컨텐츠-->
-		<div id="other-content">
-			<!--게임시작-->
-			<section id="play-game">
-				<img id="home" name="home" src="/img/game1/cook_king_main.jpg"/><br/>
-			  <img id="main_start" src='/img/game1/game_start_button.png' style="cursor:pointer" onclick="round()">
-			  <img id="how" src="/img/game1/game_method_button.png" style="cursor:pointer" onclick="exp()">
-			  <img id="before_cooking_oven" name="oven" style="display:none" src="/img/game1/before_cooking_oven.jpg">
-			  <br/>
-			  <img id="start_button" style="display:none;cursor:pointer;" src='/img/game1/start_button.png' onclick="start_count()">
-			  <img id="end_button" style="display:none;cursor:pointer;" src='/img/game1/stop_button.png' onclick="end_count()">
-			  <br/>
+	<!--컨텐츠-->
+	<div id="other-content">
+		<!--게임시작-->
+		<section id="play-game">
+			<img id="home" name="home" src="/img/game1/cook_king_main.jpg"/><br/>
+			<img id="main_start" src='/img/game1/game_start_button.png' style="cursor:pointer" onclick="round()">
+			<img id="how" src="/img/game1/game_method_button.png" style="cursor:pointer" onclick="exp()">
+			<img id="before_cooking_oven" name="oven" style="display:none" src="/img/game1/before_cooking_oven.jpg">
+			<br/>
+			<img id="start_button" style="display:none;cursor:pointer;" src='/img/game1/start_button.png' onclick="start_count()">
+			<img id="end_button" style="display:none;cursor:pointer;" src='/img/game1/stop_button.png' onclick="end_count()">
+			<br/>
 
-				<!--게임 시작시 나오는 메뉴 화면-->
-			  <div id=food style="display:none">
-			  <img id="food1" width="200" height="200" src="/img/game/chicken0.png" style="cursor:pointer" onclick="food1_start()">
-			  <img id="food2" width="200" height="200" src="/img/game/popcorn0.png" style="cursor:pointer" onclick="food2_start()">
-			  <img id="food3" width="200" height="200" src="/img/game/egg0.png" style="cursor:pointer" onclick="food3_start()">
-			  <br/>
-			  <img id="food4" width="200" height="200" src="/img/game/bread0.png" style="cursor:pointer" onclick="food4_start()">
-			  <img id="food5" width="200" height="200" src="/img/game/hotdog0.png" style="cursor:pointer" onclick="food5_start()">
-			  <img id="back" src="/img/game1/back.png" style="display:none;cursor:pointer;" onclick="go_home()">
-			  </div>
+			<!--게임 시작시 나오는 메뉴 화면-->
+			<div id=food style="display:none">
+				<img id="food1" width="200" height="200" src="/img/game1/chicken0.png" style="cursor:pointer" onclick="food1_start()">
+				<img id="food2" width="200" height="200" src="/img/game1/popcorn0.png" style="cursor:pointer" onclick="food2_start()">
+				<img id="food3" width="200" height="200" src="/img/game1/egg0.png" style="cursor:pointer" onclick="food3_start()">
+				<br/>
+				<img id="food4" width="200" height="200" src="/img/game1/bread0.png" style="cursor:pointer" onclick="food4_start()">
+				<img id="food5" width="200" height="200" src="/img/game1/hotdog0.png" style="cursor:pointer" onclick="food5_start()">
+				<img id="back" src="/img/game1/back.png" style="display:none;cursor:pointer;" onclick="go_home()">
+			</div>
 
-			  <h1 id="what_guess_seconds" style="color:white"></h1>
-			  <div id="when_start_button_click"></div>
-			  <div id="when_end_button_click"></div>
-			  <h1 id="between_button_click" style="color:white"></h1>
+			<h1 id="what_guess_seconds" style="color:white"></h1>
+			<div id="when_start_button_click"></div>
+			<div id="when_end_button_click"></div>
+			<h1 id="between_button_click" style="color:white"></h1>
 
-			  <img id="menu" style="display:none;cursor:pointer;" src="/img/game1/menu.png" onclick="show_menu()">
-			</section>
-			<!--게임끝-->
+			<img id="menu" style="display:none;cursor:pointer;" src="/img/game1/menu.png" onclick="show_menu()">
+		</section>
+		<!--게임끝-->
 
-			<!--다른게임으로 이동-->
-			<section id="other-show">
+		<!--다른게임으로 이동-->
+		<section id="other-show">
 
-				<ul class="other-all-games">
-					<li class="other-each-game">
-            <a href="../game2/game2.html"><img id="game2" src="/img/2.png" class="other-game-img"/></a>
-          </li>
+			<ul class="other-all-games">
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game2')"><img id="game2" src="/img/2.png" class="other-game-img"/></span>
+				</li>
 
-					<li class="other-each-game">
-            <a href="../game3/game3.html"><img id="game3" src="/img/3.png"  class="other-game-img"/> </a>
-          </li>
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game3')"><img id="game3" src="/img/3.png"  class="other-game-img"/> </span>
+				</li>
 
-					<li class="other-each-game">
-            <a href="../game4/game4.html"> <img id="game4" src="/img4.png"   class="other-game-img"/></a>
-          </li>
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game4')"><img id="game4" src="/img/4.png"   class="other-game-img"/></span>
+				</li>
 
-					<li class="other-each-game">
-            <a href="../game5/game5.html"><img id="game5" src="/img/5.png"  class="other-game-img"/></a>
-          </li>
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game5')"><img id="game5" src="/img/5.png"  class="other-game-img"/></span>
+				</li>
 
-					<li class="other-each-game">
-            <a href="../game6/game6.html"><img id="game6" src="/img/6.png" class="other-game-img"/></a>
-          </li>
-				</ul>
-			</section>
-		</div>
-
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game6')"><img id="game6" src="/img/6.png" class="other-game-img"/></span>
+				</li>
+			</ul>
+		</section>
 	</div>
+
+</div>
 </body>
 
-  <!--이미지에 마우스를 올리면 이미지 전환-->
+<!--이미지에 마우스를 올리면 이미지 전환-->
 <script>
 
-$('#game2').hover(function() {
-  $(this).attr('src', '/img/2_1.png');
-}, function(){
-  $(this).attr('src', '/img/2.png');
-});
+	$('#game2').hover(function() {
+		$(this).attr('src', '/img/2_1.png');
+	}, function(){
+		$(this).attr('src', '/img/2.png');
+	});
 
-$('#game3').hover(function() {
-  $(this).attr('src', '/img/3_1.png');
-}, function(){
-  $(this).attr('src', '/img/3.png');
-});
+	$('#game3').hover(function() {
+		$(this).attr('src', '/img/3_1.png');
+	}, function(){
+		$(this).attr('src', '/img/3.png');
+	});
 
-$('#game4').hover(function() {
-  $(this).attr('src', '/img/4_1.png');
-}, function(){
-  $(this).attr('src', '/img/4.png');
-});
+	$('#game4').hover(function() {
+		$(this).attr('src', '/img/4_1.png');
+	}, function(){
+		$(this).attr('src', '/img/4.png');
+	});
 
-$('#game5').hover(function() {
-  $(this).attr('src', '/img/5_1.png');
-}, function(){
-  $(this).attr('src', '/img/5.png');
-});
+	$('#game5').hover(function() {
+		$(this).attr('src', '/img/5_1.png');
+	}, function(){
+		$(this).attr('src', '/img/5.png');
+	});
 
-$('#game6').hover(function() {
-  $(this).attr('src', '/img/6_1.png');
-}, function(){
-  $(this).attr('src', '/img/6.png');
-});
+	$('#game6').hover(function() {
+		$(this).attr('src', '/img/6_1.png');
+	}, function(){
+		$(this).attr('src', '/img/6.png');
+	});
 
 </script>
 

@@ -1,159 +1,305 @@
-  <!--게임 방법을 읽거나 시작 화면으로 넘어가는 페이지-->
+
 <html>
 <head>
-
 	<title>Rhythm Play</title>
 	<link rel="stylesheet" type="text/css" href="/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="/css/each_game.css" />
 
 	<style>
 
-	#E{																/*게임 설명 이미지*/
-		display: none;
-		width:350;
-	}
+		#E{																/*게임 설명 이미지*/
+			display: none;
+			width:350;
+		}
 
-	#game{														/*게임 박스*/
-		background: lightblue;
-		margin: auto;
-	}
+		#game{														/*게임 박스*/
+			background: lightblue;
+			margin: auto;
+		}
 
-	#title{														/*게임 제목*/
-		margin: 20 0;
-	}
-	
-	#play-game > {										/*게임 영역*/
-		margin: 50 auto;
-	}
+		#title{														/*게임 제목*/
+			margin: 20 0;
+		}
 
-	.b{																/*게임 시작, 방법 버튼*/
-		width: 200;
-		margin: 80 30;
-	}
+		#play-game > {										/*게임 영역*/
+			margin: 50 auto;
+		}
+
+		.b{																/*게임 시작, 방법 버튼*/
+			width: 200;
+			margin: 80 30;
+		}
+
+		#end{													/*게임 엔드 이미지*/
+			display: none;
+		}
+
+		#rhythmPlay{									/*게임 제목 이미지*/
+			margin: 20 0 0 0;
+		}
+
+		#game-start{
+			/*게임 박스*/
+			width: 600px;
+			height: 450px;
+			background: lightblue;
+			margin: auto;
+
+			display: none;
+		}
+
+		.key{													/*화살표 이미지*/
+			width: 40px;
+			height: 40px;
+			margin: auto 5;
+		}
+
+		.t{															/*공백*/
+			height: 60px;
+		}
+
+		#timebar{											/*남은 시간을 나타내는 바*/
+			margin: 10 10;
+			height: 15px;
+		}
+
+		#replay{											/*다시하기 박스*/
+			display: none;
+		}
+
+		#reimg{												/*다시하기 이미지*/
+			width:100px;
+		}
+
 
 	</style>
 
-
 	<script
-	  src="https://code.jquery.com/jquery-3.4.1.js"
-	  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	  crossorigin="anonymous"></script>
+			src="https://code.jquery.com/jquery-3.4.1.js"
+			integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			crossorigin="anonymous">
+	</script>
 
-<script>
-	function explain(){						// 게임 방법 이미지 여는 함수
-		$('#E').show();
-		$('.b').hide();
-	}
-	function re(){							// 게임 방법 이미지 닫는 함수
-		$('#E').hide();
-		$('.b').show();
-	}
-</script>
+	<script>
+		function explain(){						// 게임 방법 이미지 여는 함수
+			$('#E').show();
+			$('.b').hide();
+		}
+		function re(){							// 게임 방법 이미지 닫는 함수
+			$('#E').hide();
+			$('.b').show();
+		}
+
+		function remove_start_page(){
+			$('#game').hide();
+			$('#game-start').show();
+		}
+	</script>
 
 </head>
+
 <body>
-	<!--전체를 감싸는 태그-->
-  <div id="other-wrapper">
-		<!--헤더-->
-		<header id="header">
-			<a href="../game planet main.html">
-			<img src="/img/title.png" height="200px" class="logo-img"/></a>
-		</header>
+<!--전체를 감싸는 태그-->
+<div id="other-wrapper">
+	<!--헤더-->
+	<header id="header">
+		<img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.replace('/')"/>
+	</header>
 
-		<!--컨텐츠-->
-		<div id="other-content">
-			<!--게임시작-->
-			<section id="play-game">
+	<!--컨텐츠-->
+	<div id="other-content">
 
-					<div id="game">
-					  <img src="/img/game3/title.png" id="title"/>																	<!--게임 제목-->
-						<a href="gameplay.html"><img class="b" src="/img/game3/game_start.png"/></a>				<!--게임 시작 버튼-->
-					 	<img class="b" src="/img/game3/howto.png" onclick="explain()"/>								<!--게임 방법 버튼-->
-						<img src="/img/game3/explain.png" id="E" onclick="re()"/>												<!--게임 방법 설명-->
+		<section id="play-game">
 
-					</div>
-				</section>
-			<!--게임끝-->
+			<div id="game">
+				<img src="/img/game3/title.png" id="title"/>																	<!--게임 제목-->
+				<img class="b" src="/img/game3/game_start.png" onclick="remove_start_page()"/>				<!--게임 시작 버튼-->
+				<img class="b" src="/img/game3/howto.png" onclick="explain()"/>								<!--게임 방법 버튼-->
+				<img src="/img/game3/explain.png" id="E" onclick="re()"/>												<!--게임 방법 설명-->
 
-			<!--다른게임으로 이동-->
-      <section id="other-show">
+			</div>
+		</section>
 
-				<ul class="other-all-games">
-					<li class="other-each-game">
-            <a href="../game1/game1.html">
-              <img src="/img/1.png" id="game1" class="other-game-img"/>
+		<!--게임시작-->
+		<section id="play-game-start">
+			<div id="game-start">
+				<img src="/img/game3/title.png" id="rhythmPlay"/>																					<!--제목이미지-->
+				<img src="/img/game3/time.png" id="time"/><img src="/img/game3/bar.png" id="timebar"/>							<!--남은 시간-->
+				<br />
+				<img src="/img/game3/end.png" id="end"/>																									<!--엔드 이미지-->
+				<div class="t"></div>																													<!--공백-->
+				<img src="/img/game3/start.png" id="start"/>
+				<img  class="key" id="k1"/>																										<!--화살표 이미지-->
+				<img  class="key" id="k2"/>
+				<img  class="key" id="k3"/>
+				<img  class="key" id="k4"/>
+				<img  class="key" id="k5"/>
+				<img  class="key" id="k6"/>
+				<img  class="key" id="k7"/>
+				<img  class="key" id="k8"/>
+				<div class="t"></div>																													<!--공백-->
+				<h2 id="score">score : 0</h2>																									<!--점수 표시-->
+				<!--<div id="replay"><img src="/img/game3/replay.png" id="reimg" onclick=""></div>-->		<!--다시 하기-->
 
-            </a>
-          </li>
+			</div>
+		</section>
+		<!--게임끝-->
 
-					<li class="other-each-game">
-            <a href="../game2/game2.html">
-              <img src="/img/2.png" id="game2" class="other-game-img"/>
+		<!--다른게임으로 이동-->
+		<section id="other-show">
 
-            </a>
-          </li>
+			<ul class="other-all-games">
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game1')"><img src="/img/1.png" id="game1" class="other-game-img"/></span>
+				</li>
 
-					<li class="other-each-game">
-            <a href="../game4/game4.html">
-              <img src="/img/4.png" id="game4" class="other-game-img"/>
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game2')"><img id="game2" src="/img/2.png" class="other-game-img"/></span>
+				</li>
 
-            </a>
-          </li>
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game4')"><img id="game4" src="/img/4.png"   class="other-game-img"/></span>
+				</li>
 
-					<li class="other-each-game">
-            <a href="../game5/game5.html">
-              <img src="/img/5.png" id="game5" class="other-game-img"/>
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game5')"><img id="game5" src="/img/5.png"  class="other-game-img"/></span>
+				</li>
 
-            </a>
-          </li>
-
-					<li class="other-each-game">
-            <a href="../game6/game6.html">
-              <img src="/img/6.png" id="game6" class="other-game-img"/>
-
-            </a>
-          </li>
-				</ul>
-      </section>
-		</div>
-
-		<br />
-
+				<li class="other-each-game">
+					<span type="button" onclick="location.replace('game6')"><img id="game6" src="/img/6.png" class="other-game-img"/></span>
+				</li>
+			</ul>
+		</section>
 	</div>
+
+</div>
 </body>
 
-  <!--이미지에 마우스를 올리면 이미지 전환-->
+<script>
+	var time=450;																				// 게임 시간
+	var music = new Audio('/audio/game3/music.mp3');						 // 배경 음악
+	var effect = new Audio('/audio/game3/button.mp3');							 	// 효과음
+	var endeffect= new Audio('/audio/game3/win.mp3');								// 끝났을 때 나오는 음악
+
+	setInterval(function(){															// 시간이 줄어드는 함수
+		music.play();																			// audio로 노래를 틀면 안나오는 경우도 있어서 setInterval 안에 적용
+		time=time-1;
+		$('#timebar').css('width',time);
+		if(time==0)	end();																// 시간이 0이면 end 함수 호출
+	},30);
+
+
+
+	var score=0;
+	var k=[0,0,0,0,0,0,0,0];															// 방향키 배열
+
+	function result(){																		// 랜덤으로 화살표 설정하는 함수
+		var temp=Math.floor(Math.random() * 4)+37;
+		if (temp==37)	return '/img/game3/left.png';
+		else	if (temp==38)	return '/img/game3/up.png';
+		else	if (temp==39)	return '/img/game3/right.png';
+		else	if (temp==40)	return '/img/game3/down.png';
+	}
+
+	for(var i=0;i<8;i++)																// 화살표 랜덤으로 초기화
+	{
+		var j=i+1;
+		k[i]=result();
+		$('#k'+j).attr('src',k[i]);
+	}
+
+	function hit(){																			// 방향키 입력과 화살표가 똑같을 때 발생하는 함수
+		effect.play();																		// 효과음 재생
+		score = score+10;																	// 점수 증가
+		$('#score').text('score : '+score);
+
+		for(var i=0;i<7;i++){															// 화살표 한 칸씩 앞으로
+			k[i]=k[i+1];
+		}
+		k[7]=result();																		// 마지막 화살표 랜덤 설정
+
+		for(var i=0;i<8;i++)															// 배열에 맞게 이미지 바꾸기
+		{
+			var j=i+1;
+			$('#k'+j).attr('src',k[i]);
+		}
+
+	}
+
+	function end(){																			// 게임 엔드 함수
+		k[0]='';																					// 배열의 첫 칸을 초기화해서 입력 중단
+		$('#time').hide();
+		$('#start').hide();
+		$('#end').show();
+		$('#replay').show();
+		$('.key').hide();
+		$('.t').hide();
+		endeffect.play();
+		score=0;
+	}
+
+	function input(){																		// 방향키 입력과 배열의 첫 칸이 일치하면 hit함수 호출
+		$(document).keyup(function(event) {
+			if (event.keyCode == '37') {
+				if(k[0]=='/img/game3/left.png'){
+					hit();
+				}
+			}
+			else if (event.keyCode == '38') {
+				if(k[0]=='/img/game3/up.png'){
+					hit();
+				}
+			}
+			else if (event.keyCode == '39') {
+				if(k[0]=='/img/game3/right.png'){
+					hit();
+				}
+			}
+			else if (event.keyCode == '40') {
+				if(k[0]=='/img/game3/down.png'){
+					hit();
+				}
+			}
+			event.keyCode=0;
+		});
+	}
+	input();
+
+
+</script>
+
+<!--이미지에 마우스를 올리면 이미지 전환-->
 <script>
 
-$('#game1').hover(function() {
-  $(this).attr('src', '/img/1_1.png');
-}, function(){
-  $(this).attr('src', '/img/1.png');
-});
+	$('#game1').hover(function() {
+		$(this).attr('src', '/img/1_1.png');
+	}, function(){
+		$(this).attr('src', '/img/1.png');
+	});
 
-$('#game2').hover(function() {
-  $(this).attr('src', '/img/2_1.png');
-}, function(){
-  $(this).attr('src', '/img/2.png');
-});
+	$('#game2').hover(function() {
+		$(this).attr('src', '/img/2_1.png');
+	}, function(){
+		$(this).attr('src', '/img/2.png');
+	});
 
-$('#game4').hover(function() {
-  $(this).attr('src', '/img/4_1.png');
-}, function(){
-  $(this).attr('src', '/img/4.png');
-});
+	$('#game4').hover(function() {
+		$(this).attr('src', '/img/4_1.png');
+	}, function(){
+		$(this).attr('src', '/img/4.png');
+	});
 
-$('#game5').hover(function() {
-  $(this).attr('src', '/img/5_1.png');
-}, function(){
-  $(this).attr('src', '/img/5.png');
-});
+	$('#game5').hover(function() {
+		$(this).attr('src', '/img/5_1.png');
+	}, function(){
+		$(this).attr('src', '/img/5.png');
+	});
 
-$('#game6').hover(function() {
-  $(this).attr('src', '/img/6_1.png');
-}, function(){
-  $(this).attr('src', '/img/6.png');
-});
+	$('#game6').hover(function() {
+		$(this).attr('src', '/img/6_1.png');
+	}, function(){
+		$(this).attr('src', '/img/6.png');
+	});
 
 </script>
 
