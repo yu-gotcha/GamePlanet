@@ -58,7 +58,6 @@ a{
   left: 0%;
   width: 100%;
 }
-
 /*게임 분류*/
 .tag{
   margin: auto;
@@ -70,4 +69,8 @@ a{
 /*게임 아이콘을 감싸는 a태그*/
 .link{
   position: relative;       /*하위태그에 포지션  absolute인 태그가 있어서*/
+}
+
+.link:hover{
+  cursor: pointer;
 }
