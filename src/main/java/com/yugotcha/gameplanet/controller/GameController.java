@@ -14,7 +14,7 @@ public class GameController {
     @GetMapping(value = "")
     public String game (HttpServletRequest request){
         String requestUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-        System.out.println(requestUrl);
+
         switch(requestUrl){
             case "/game1" :
 
