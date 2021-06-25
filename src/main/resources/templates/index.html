@@ -57,9 +57,13 @@
 <body>
   <!--전체를 감싸는 태그-->
   <div id="main-wrapper">
+    <div id = "user">
+      <input type="button" value="로그인" onClick="location.href='user/login'"/>
+      <input type="button" value="회원가입" onClick="location.href='user/join'"/>
+    </div>
     <!--헤더-->
     <header id="header">
-      <img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.replace('/')"/>
+      <img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.href=('/')"/>
     </header>
 
 
@@ -71,7 +75,7 @@
         </div>
         <ul class="main-all-games">
           <li class="main-each-game">
-            <span type="button" onclick="location.replace('game1')" class="link">
+            <span type="button" onclick="location.href=('cookingGame')" class="link">
               <img id="game1" src="/img/1.png"  width="200px"  class="main-game-img"/>
               <img src="/img/casual.png"  class="tag"/>
               <h1 class="gametitle">요리왕</h1>
@@ -79,7 +83,7 @@
           </li>
 
           <li class="main-each-game">
-            <span type="button" onclick="location.replace('game2')" class="link">
+            <span type="button" onclick="location.href=('bullsAndCowsGame')" class="link">
               <img id="game2" src="/img/2.png" width="200px"  class="main-game-img"/>
               <img src="/img/puzzle.png"  class="tag"/>
               <h1 class="gametitle">숫자야구</h1>
@@ -87,7 +91,7 @@
           </li>
 
           <li class="main-each-game">
-            <span type="button" onclick="location.replace('game3')" class="link">
+            <span type="button" onclick="location.href=('rhythmGame')" class="link">
               <img id="game3" src="/img/3.png" width="200px"  class="main-game-img"/>
               <img src="/img/rhythm.png"  class="tag"/>
               <h1 class="gametitle">Rhythm Play</h1>
@@ -95,7 +99,7 @@
           </li>
 
           <li class="main-each-game">
-            <span type="button" onclick="location.replace('game4')" class="link">
+            <span type="button" onclick="location.href=('martGame')" class="link">
               <img id="game4" src="/img/4.png" width="200px"  class="main-game-img"/>
               <img src="/img/board.png"  class="tag"/>
               <h1 class="gametitle">2MART</h1>
@@ -103,7 +107,7 @@
           </li>
 
           <li class="main-each-game">
-            <span type="button" onclick="location.replace('game5')" class="link">
+            <span type="button" onclick="location.href=('matchingGame')" class="link">
               <img id="game5" src="/img/5.png" width="200px"  class="main-game-img"/>
               <img src="/img/board.png"  class="tag"/>
               <h1 class="gametitle">카드 뒤집기</h1>
@@ -111,7 +115,7 @@
           </li>
 
           <li class="main-each-game">
-            <span type="button" onclick="location.replace('game6')" class="link">
+            <span type="button" onclick="location.href=('rockPaperScissorsGame')" class="link">
               <img id="game6" src="/img/6.png"  width="200px"  class="main-game-img"/>
               <img src="/img/classic.png"  class="tag"/>
               <h1 class="gametitle">연속 가위바위보</h1>
