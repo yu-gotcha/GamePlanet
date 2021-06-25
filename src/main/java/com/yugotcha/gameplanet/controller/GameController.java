@@ -8,39 +8,25 @@ import org.springframework.web.servlet.HandlerMapping;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping(value = {"game1", "game2", "game3", "game4", "game5", "game6"})
+@RequestMapping(value = "")
 public class GameController {
 
-    @GetMapping(value = "")
-    public String game (HttpServletRequest request){
-        String requestUrl = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+    @GetMapping(value = "cookingGame")
+    public String cookingGame(){ return "cookingGame"; }
 
-        switch(requestUrl){
-            case "/game1" :
+    @GetMapping(value = "bullsAndCowsGame")
+    public String bullsAndCowsGame(){ return "bullsAndCowsGame"; }
 
-                return "game1";
+    @GetMapping(value = "rhythmGame")
+    public String rhythmGame(){ return "rhythmGame"; }
 
-            case "/game2" :
+    @GetMapping(value = "martGame")
+    public String martGame(){ return "martGame"; }
 
-                return "game2";
+    @GetMapping(value = "matchingGame")
+    public String matchingGame(){ return "matchingGame"; }
 
-            case "/game3" :
-
-                return "game3";
-
-            case "/game4" :
-
-                return "game4";
-
-            case "/game5" :
-
-                return "game5";
-
-            case "/game6" :
-
-                return "game6";
-        }
-        return "error";
-    }
+    @GetMapping(value = "rockPaperScissorsGame")
+    public String rockPaperScissorsGame(){ return "rockPaperScissorsGame"; }
 
 }
