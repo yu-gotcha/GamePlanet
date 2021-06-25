@@ -43,6 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/img/**", "/audio/**").permitAll()
                 .antMatchers("/").permitAll()
+                .antMatchers("/cookingGame", "/matchingGame", "/bullsAndCowsGame", "/rhythmGame", "/martGame", "/rockPaperScissorsGame").permitAll()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/users/join").permitAll()
