@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html>
+<head>
+    <title>GAME PLANET</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<!--전체를 감싸는 태그-->
+<div id="main-wrapper">
+    <div id = "user">
+        <input type="button" class="nav-btn" value="로그인" onClick="location.href='/users/login'"/>
+        <input type="button" class="nav-btn" value="회원가입" onClick="location.href='/users/join'"/>
+    </div>
+    <!--헤더-->
+    <header id="header">
+        <img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.href=('/')"/>
+    </header>
+
+</div>
+
+<div class="box-wrapper">
+    <form action="/users/login" method="post">
+        <div class="login-box-body">
+            <div class="login-logo-section">
+                <p class="login-logo">로그인</p>
+            </div>
+            <!-- <p class="login-box-msg">서비스를 이용하시려면 로그인하여 주십시오.</p>-->
+            <div class="login-form">
+                <input type="text" class="login-input" name="username" id="username" placeholder="ID">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div class="login-form">
+                <input type="password" class="login-input" name="password" id="password" placeholder="PW">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <button type="submit" class="login-btn">로그인</button>
+            <br>
+            <span class="login-no-account">계정이 없으신가요?</span>
+            <input type="button" class="login-join-href" value="회원가입" onClick="location.href='users/join'"/>
+        </div>
+    </form>
+</div>
+
+
+</body>
+
+
+
+</html>
