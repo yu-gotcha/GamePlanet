@@ -21,9 +21,10 @@ public class JwtTokenProvider {
     @PostConstruct
     protected void init() { secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8)); }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String username, List<String> roles, String nickname) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
+        claims.put("nickname", nickname);
 
         Date now = new Date();
 

@@ -44,10 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long join(UserDTO user) throws IllegalArgumentException {
+        System.out.println("Service---join----"+user.getUsername()+":"+user.getPassword());
         return userRepository.save(User.builder()
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .password(passwordEncoder.encode(user.getPassword()))
+                .nickname(user.getNickname())
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build()).getIdx();
     }
