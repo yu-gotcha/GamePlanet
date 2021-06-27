@@ -30,11 +30,14 @@ public class User implements UserDetails {
     @Column(length = 30, nullable = false, unique = true)
     private String username;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = true, unique = true)
     private String email;
 
     @Column(length = 300, nullable = false)
     private String password;
+
+    @Column(length = 30, nullable = false)
+    private String nickname;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
