@@ -91,7 +91,7 @@
 			border: none;
 		}
 
-		input{
+		.input{
 			width: 20px;
 			height: 30px;
 			border-radius: 50%;
@@ -264,7 +264,10 @@
 </head>
 <body>
 <!--전체를 감싸는 태그-->
-
+<div id = "user">
+	<input type="button" class="nav-btn" value="로그인" onClick="location.href='users/login'"/>
+	<input type="button" class="nav-btn" value="회원가입" onClick="location.href='users/join'"/>
+</div>
 <!--헤더-->
 <header id="header">
 		<img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.href=('/')"/>
@@ -291,7 +294,7 @@
 
 				<!--입력-->
 				<form id="Form">
-					<input type="text" class="text" /><input type="text" class="text" /> <input type="text" class="text" /><input type="text" class="text" />
+					<input type="text" class="text input" /><input type="text" class="text input" /> <input type="text" class="text" /><input type="text" class="text" />
 				</form>
 
 				<!--버튼 부분-->
