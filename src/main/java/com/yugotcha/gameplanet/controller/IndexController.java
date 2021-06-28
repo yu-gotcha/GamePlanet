@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -20,8 +23,10 @@ public class IndexController {
     @GetMapping
     public String index(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model) {
         if(!authCookie.equals("0")){
-            String username = jwtTokenProvider.getUserUsername(authCookie);
-            model.addAttribute("username", username);
+            Map<String, Object> map = new HashMap<>();
+            map.put("username", jwtTokenProvider.getUserUsername(authCookie));
+
+            model.addAttribute("userdata", map);
         }
 
         return "index";
