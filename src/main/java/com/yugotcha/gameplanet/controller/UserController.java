@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -25,19 +26,12 @@ public class UserController {
     @GetMapping(value = "/login")
     public String userLogin(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie) {
         System.out.println(authCookie);
-        //if(!authCookie.equals("0")) return "redirect:/";
+        if(!authCookie.equals("0")) return "redirect:/";
         return "/users/login";
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String login(HttpServletResponse response, UserDTO user) {
-        /*
-        System.out.println("로그인 시도");
-        UserDTO user2 = new UserDTO();
-        user2.setUsername(username);
-        user2.setPassword(password);
-
-         */
 
         if(user.getUsername().equals("") || user.getPassword().equals("")) return "redirect:login";
 
@@ -79,5 +73,15 @@ public class UserController {
         } catch (Exception e) {
             return "redirect:join";
         }
+    }
+
+    @GetMapping(value = "/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie removeCookie = new Cookie("token", null);
+        removeCookie.setMaxAge(0);
+        removeCookie.setPath("/");
+        response.addCookie(removeCookie);
+
+        return "redirect:/";
     }
 }
