@@ -288,8 +288,15 @@
 <!--전체를 감싸는 태그-->
 <div id="other-wrapper">
 	<div id = "user">
-		<input type="button" class="nav-btn" value="로그인" onClick="location.href='users/login'"/>
-		<input type="button" class="nav-btn" value="회원가입" onClick="location.href='users/join'"/>
+		{{^userdata}}
+		<input type="button" class="nav-btn" value="로그인" onClick="location.href='/users/login'"/>
+		<input type="button" class="nav-btn" value="회원가입" onClick="location.href='/users/join'"/>
+		{{/userdata}}
+
+		{{#userdata}}
+		<span class="nav-user-name">{{username}} 님</span>
+		<input type="button" class="nav-logout-btn" value="로그아웃" onClick="location.href='/users/logout'"/>
+		{{/userdata}}
 	</div>
 	<!--헤더-->
 	<header id="header">

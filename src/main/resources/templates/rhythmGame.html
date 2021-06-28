@@ -102,12 +102,19 @@
 <!--전체를 감싸는 태그-->
 <div id="other-wrapper">
 	<div id = "user">
-		<input type="button" class="nav-btn" value="로그인" onClick="location.href='users/login'"/>
-		<input type="button" class="nav-btn" value="회원가입" onClick="location.href='users/join'"/>
+		{{^userdata}}
+		<input type="button" class="nav-btn" value="로그인" onClick="location.href='/users/login'"/>
+		<input type="button" class="nav-btn" value="회원가입" onClick="location.href='/users/join'"/>
+		{{/userdata}}
+
+		{{#userdata}}
+		<span class="nav-user-name">{{username}} 님</span>
+		<input type="button" class="nav-logout-btn" value="로그아웃" onClick="location.href='/users/logout'"/>
+		{{/userdata}}
 	</div>
 	<!--헤더-->
 	<header id="header">
-		<img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.href('/')"/>
+		<img src="/img/title.png" height="200px" class="logo-img" type = "button" onclick="location.href=('/')"/>
 	</header>
 
 	<!--컨텐츠-->
@@ -154,23 +161,23 @@
 
 			<ul class="other-all-games">
 				<li class="other-each-game">
-					<span type="button" onclick="location.href('cookingGame')"><img src="/img/1.png" id="game1" class="other-game-img"/></span>
+					<span type="button" onclick="location.href=('cookingGame')"><img src="/img/1.png" id="game1" class="other-game-img"/></span>
 				</li>
 
 				<li class="other-each-game">
-					<span type="button" onclick="location.href('bullsAndCowsGame')"><img id="game2" src="/img/2.png" class="other-game-img"/></span>
+					<span type="button" onclick="location.href=('bullsAndCowsGame')"><img id="game2" src="/img/2.png" class="other-game-img"/></span>
 				</li>
 
 				<li class="other-each-game">
-					<span type="button" onclick="location.href('martGame')"><img id="game4" src="/img/4.png"   class="other-game-img"/></span>
+					<span type="button" onclick="location.href=('martGame')"><img id="game4" src="/img/4.png"   class="other-game-img"/></span>
 				</li>
 
 				<li class="other-each-game">
-					<span type="button" onclick="location.href('matchingGame')"><img id="game5" src="/img/5.png"  class="other-game-img"/></span>
+					<span type="button" onclick="location.href=('matchingGame')"><img id="game5" src="/img/5.png"  class="other-game-img"/></span>
 				</li>
 
 				<li class="other-each-game">
-					<span type="button" onclick="location.href('rockPaperScissorsGame')"><img id="game6" src="/img/6.png" class="other-game-img"/></span>
+					<span type="button" onclick="location.href=('rockPaperScissorsGame')"><img id="game6" src="/img/6.png" class="other-game-img"/></span>
 				</li>
 			</ul>
 		</section>
