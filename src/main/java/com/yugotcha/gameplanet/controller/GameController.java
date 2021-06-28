@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -20,50 +22,51 @@ public class GameController {
 
     @GetMapping(value = "cookingGame")
     public String cookingGame(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model){
-        String username = jwtTokenProvider.getUserUsername(authCookie);
-        model.addAttribute("username", username);
+        if(!authCookie.equals("0")) setUser(authCookie, model);
 
         return "cookingGame";
     }
 
     @GetMapping(value = "bullsAndCowsGame")
     public String bullsAndCowsGame(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model) {
-        String username = jwtTokenProvider.getUserUsername(authCookie);
-        model.addAttribute("username", username);
+        if(!authCookie.equals("0")) setUser(authCookie, model);
 
         return "bullsAndCowsGame";
     }
 
     @GetMapping(value = "rhythmGame")
     public String rhythmGame(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model) {
-        String username = jwtTokenProvider.getUserUsername(authCookie);
-        model.addAttribute("username", username);
+        if(!authCookie.equals("0")) setUser(authCookie, model);
 
         return "rhythmGame";
     }
 
     @GetMapping(value = "martGame")
     public String martGame(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model) {
-        String username = jwtTokenProvider.getUserUsername(authCookie);
-        model.addAttribute("username", username);
+        if(!authCookie.equals("0")) setUser(authCookie, model);
 
         return "martGame";
     }
 
     @GetMapping(value = "matchingGame")
     public String matchingGame(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model) {
-        String username = jwtTokenProvider.getUserUsername(authCookie);
-        model.addAttribute("username", username);
+        if(!authCookie.equals("0")) setUser(authCookie, model);
 
         return "matchingGame";
     }
 
     @GetMapping(value = "rockPaperScissorsGame")
     public String rockPaperScissorsGame(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie, Model model) {
-        String username = jwtTokenProvider.getUserUsername(authCookie);
-        model.addAttribute("username", username);
+        if(!authCookie.equals("0")) setUser(authCookie, model);
 
         return "rockPaperScissorsGame";
+    }
+
+    public void setUser(String token, Model model){
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", jwtTokenProvider.getUserUsername(token));
+
+        model.addAttribute("userdata", map);
     }
 
 }
