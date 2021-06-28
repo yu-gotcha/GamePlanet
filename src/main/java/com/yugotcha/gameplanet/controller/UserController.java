@@ -4,6 +4,7 @@ import com.yugotcha.gameplanet.config.JwtTokenProvider;
 import com.yugotcha.gameplanet.dto.UserDTO;
 import com.yugotcha.gameplanet.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,16 +25,19 @@ public class UserController {
     @GetMapping(value = "/login")
     public String userLogin(@CookieValue(value = "token", required = false, defaultValue = "0")String authCookie) {
         System.out.println(authCookie);
-        if(!authCookie.equals("0")) return "redirect:/";
+        //if(!authCookie.equals("0")) return "redirect:/";
         return "/users/login";
     }
 
-    @PostMapping(value = "/login")
-    public String login(String username, String password, HttpServletResponse response) {
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String login(HttpServletResponse response, UserDTO user) {
+        /*
         System.out.println("로그인 시도");
-        UserDTO user = new UserDTO();
-        user.setUsername(username);
-        user.setPassword(password);
+        UserDTO user2 = new UserDTO();
+        user2.setUsername(username);
+        user2.setPassword(password);
+
+         */
 
         if(user.getUsername().equals("") || user.getPassword().equals("")) return "redirect:login";
 
