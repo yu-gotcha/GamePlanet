@@ -12,6 +12,6 @@ public class WebMvcConfigure implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedHeaders("Authorization", "Content-Type")
                 .allowedOrigins("*")
-                .allowedHeaders("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
+                .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
     }
 }
